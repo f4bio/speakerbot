@@ -1,0 +1,45 @@
+hash: 167e1a461095a784a84c473dfe957278e3b1683cb883e51ac6267498e4822b22
+updated: 2016-03-04T09:51:48.748721295-05:00
+imports:
+- name: github.com/bwmarrin/discordgo
+  version: d0c30f0f14cf4bbc89124ea6fd2c3d7946d4de24
+- name: github.com/davecgh/go-spew
+  version: 5215b55f46b2b919f50a1df0eaa5886afe4e3b3d
+  subpackages:
+  - spew
+- name: github.com/gorilla/websocket
+  version: c45a635370221f34fea2d5163fd156fcb4e38e8a
+- name: github.com/hashicorp/hcl
+  version: 71c7409f1abba841e528a80556ed2c67671744c3
+  subpackages:
+  - hcl/ast
+  - hcl/parser
+  - hcl/token
+  - json/parser
+  - hcl/scanner
+  - hcl/strconv
+  - json/scanner
+  - json/token
+- name: github.com/Jeffail/gabs
+  version: 1ad8a462121027c511ab337b98028029352ca356
+- name: github.com/layeh/gopus
+  version: f312e86d7c7afea779f2503e3e26c22ee916c992
+- name: github.com/moul/http2curl
+  version: 1812aee76a1ce98d604a44200c6a23c689b17a89
+- name: github.com/oleiade/lane
+  version: e2df44de3dbdd0074d315d1fa74f15a090802b45
+- name: github.com/paked/configure
+  version: edda2643bab9cdb01079ebfcf78fc2037fa954f8
+- name: github.com/parnurzeal/gorequest
+  version: c73179dd31355d86bd7692de9b47623d6d0fa696
+- name: golang.org/x/crypto
+  version: 5dc8cb4b8a8eb076cbb5a06bc3b8682c15bdbbd3
+  subpackages:
+  - nacl/secretbox
+  - poly1305
+  - salsa20/salsa
+- name: golang.org/x/net
+  version: 6acef71eb69611914f7a30939ea9f6e194c78172
+  subpackages:
+  - publicsuffix
+devImports: []

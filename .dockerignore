@@ -1,0 +1,12 @@
+.git/
+bk/
+scripts/
+vendor/
+
+.DS_Store
+config.json
+speakerbot
+README.md
+.travis.yml
+
+test.go

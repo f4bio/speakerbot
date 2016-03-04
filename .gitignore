@@ -1,0 +1,8 @@
+bk/
+vendor/
+
+.DS_Store
+config.json
+speakerbot
+
+test.go
