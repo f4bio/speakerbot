@@ -7,7 +7,7 @@ build:
 dev:
 	which CompileDaemon || go get github.com/githubnemo/CompileDaemon && CompileDaemon -directory=. -exclude-dir=.git -exclude-dir=vendor -exclude=speakerbot -command=./speakerbot
 
-docker-build:
+docker:
 	docker build -t dustinblackman/speakerbot .
 
 test:
