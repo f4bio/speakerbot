@@ -3,6 +3,7 @@ cd $PWD
 
 go vet
 
+which golint || go get -u github.com/golang/lint/golint
 if [[ $(golint *.go) ]]; then
   golint *.go
   echo "golint failed"

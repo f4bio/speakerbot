@@ -1,5 +1,10 @@
 ![Speakerbot](assets/banner.jpg)
 
+[![Build Status](https://travis-ci.org/dustinblackman/speakerbot.svg?branch=master)](https://travis-ci.org/dustinblackman/speakerbot)
+[![Go Walker](http://gowalker.org/api/v1/badge)](https://gowalker.org/github.com/dustinblackman/speakerbot)
+[![Go Report Card](http://goreportcard.com/badge/dustinblackman/speakerbot)](http://goreportcard.com/report/dustinblackman/speakerbot)
+[![ImageLayers](https://badge.imagelayers.io/dustinblackman/speakerbot:latest.svg)](https://imagelayers.io/?images=dustinblackman/speakerbot:latest 'Get your own badge on imagelayers.io')
+
 Speakerbot is a multiserver music bot for Discord written in Go. Supports Youtube links and querying Youtube, as well as on the fly converting resulting in instant playback (no wait times between songs!).
 
 ## Commands
@@ -36,7 +41,7 @@ Lastly, start Speakerbot
 
 ## Docker
 
-An automated docker build is available here. You can boot it up with `docker-compose` like so as an example.
+An automated docker build is available [here](https://hub.docker.com/r/dustinblackman/speakerbot/). You can boot it up with `docker-compose` like so as an example.
 
 ```yaml
 speakerbot:
