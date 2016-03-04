@@ -11,7 +11,7 @@ Speakerbot is a multiserver music bot for Discord written in Go. Supports Youtub
 
 - `!play` - Queues/Plays Youtube link, or searches Youtube and picks the first result
 - `!skip` - Skips current track
-- `!stops` - Stops playing and clears queue
+- `!stop` - Stops playing and clears queue
 - `!help` - Sends a message in text channel with the above commands
 
 ## Installation
