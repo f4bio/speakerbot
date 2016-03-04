@@ -26,7 +26,7 @@ const (
 	frameSize int = 960   // uint16 size of each audio frame
 )
 
-// VoiceInstance is created for each
+// VoiceInstance is created for each connected server
 type VoiceInstance struct {
 	discord      *discordgo.Session
 	queue        *lane.Queue
