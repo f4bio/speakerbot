@@ -55,7 +55,7 @@ speakerbot:
 
 ## Contribute/Development
 
-If you wish to contribute and add features to Speakerbot, feel free! This app was just a practice app to begin learning Go, so there won't be very much (or any at all) future development from myself.
+If you wish to contribute and add features to Speakerbot, feel free! This app was just a practice app to begin learning Go, so there won't be very much (or any at all) future development from myself. For a more full and feature packed bot, check out [Gravebot](https://github.com/Gravebot/Gravebot).
 
 Make sure to run `make test` before submitting a PR.
 
