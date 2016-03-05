@@ -105,7 +105,6 @@ func (y *youtube) findVideoID(videoID string) error {
 	}
 
 	y.videoID = videoID
-	fmt.Println(videoID)
 	if strings.ContainsAny(videoID, "?&/<%=") {
 		return errors.New("invalid characters in video id")
 	}
