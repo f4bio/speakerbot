@@ -21,7 +21,6 @@ Speakerbot requires both [`ffmpeg`](https://ffmpeg.org/download.html) and [`opus
 ```bash
 go get github.com/dustinblackman/speakerbot
 make
-make build
 ```
 
 A configuration file is available to plugin your Discord email and password, as well as a Google API key that can search Youtube. You can either rename the `config.example.json` to `config.json`, or copy/paste the following.

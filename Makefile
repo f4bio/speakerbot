@@ -1,8 +1,9 @@
 all:
-	which glide || go get github.com/Masterminds/glide && glide install
-
-build:
+	if [ ! -d "./vendor" ]; then make bootstrap; fi
 	go build -o speakerbot *.go
+
+bootstrap:
+	which glide || go get github.com/Masterminds/glide && glide install
 
 dev:
 	which CompileDaemon || go get github.com/githubnemo/CompileDaemon && CompileDaemon -directory=. -exclude-dir=.git -exclude-dir=vendor -exclude=speakerbot -command=./speakerbot
