@@ -23,7 +23,7 @@ go get github.com/dustinblackman/speakerbot
 make
 ```
 
-A configuration file is available to plugin your Discord email and password, as well as a Google API key that can search Youtube. You can either rename the `config.example.json` to `config.json`, or copy/paste the following.
+A configuration file is available to plugin your Discord email and password, as well as a [Google API key](https://developers.google.com/youtube/v3/getting-started) that can search Youtube. You can either rename the `config.example.json` to `config.json`, or copy/paste the following.
 
 ```json
 {
