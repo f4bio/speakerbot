@@ -8,6 +8,8 @@ import (
 	"github.com/layeh/gopus"
 )
 
+// Borrowed from https://github.com/bwmarrin/dgvoice
+
 var (
 	sendpcm bool
 	recv    chan *discordgo.Packet

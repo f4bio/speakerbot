@@ -21,9 +21,9 @@ var (
 )
 
 const (
-	channels  int = 2     // 1 for mono, 2 for stereo
-	frameRate int = 48000 // audio sampling rate
-	frameSize int = 960   // uint16 size of each audio frame
+	channels  int = 2
+	frameRate int = 48000
+	frameSize int = 960
 )
 
 // VoiceInstance is created for each connected server
@@ -51,7 +51,6 @@ func (vi *VoiceInstance) playVideo(url string) {
 		log.Printf("reading answer: non 200 status code received: '%s'", err)
 	}
 
-	// Create a shell command "object" to run.
 	run = exec.Command("ffmpeg", "-i", "-", "-f", "s16le", "-ar", strconv.Itoa(frameRate), "-ac", strconv.Itoa(channels), "pipe:1")
 	run.Stdin = resp.Body
 	stdout, err := run.StdoutPipe()
@@ -60,7 +59,6 @@ func (vi *VoiceInstance) playVideo(url string) {
 		return
 	}
 
-	// Starts ffmpeg
 	err = run.Start()
 	if err != nil {
 		fmt.Println("RunStart Error:", err)
@@ -136,7 +134,7 @@ func (vi *VoiceInstance) connectVoice() {
 		return
 	}
 
-	// Hacky loop to prevent sending on a nil channel.
+	// Hacky loop to prevent returning when voice isn't ready
 	// TODO: Find a better way.
 	for vi.discord.Voice.Ready == false {
 		runtime.Gosched()
