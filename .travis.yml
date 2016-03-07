@@ -2,13 +2,10 @@ language: go
 go:
   - 1.6
 
-addons:
-  apt:
-    sources:
-      - ubuntu-toolchain-r-test
-    packages:
-      - opus-tools
-      - libopus-dev
+before_install:
+  - sudo add-apt-repository ppa:ubuntu-sdk-team/ppa
+  - sudo apt-get update
+  - sudo apt-get install libopus-dev
 
 install: make
 script: ./scripts/test.sh
