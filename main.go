@@ -10,11 +10,6 @@ import (
 	"github.com/paked/configure"
 )
 
-const (
-	// VERSION of Speakerbot
-	VERSION = "1.0.0"
-)
-
 var (
 	conf      = configure.New()
 	email     = conf.String("email", "", "Discord email address")

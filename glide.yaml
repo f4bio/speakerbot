@@ -1,4 +1,5 @@
 package: github.com/dustinblackman/speakerbot
+version: 1.0.0
 import:
 - package: github.com/bwmarrin/discordgo
   version: develop
