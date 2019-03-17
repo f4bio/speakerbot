@@ -1,9 +1,8 @@
-package cmd
+package nipplebot
 
 import (
 	"errors"
 	"fmt"
-	"log"
 	"net/url"
 	"regexp"
 	"strings"

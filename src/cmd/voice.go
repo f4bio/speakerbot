@@ -1,16 +1,16 @@
-package cmd
+package nipplebot
 
 import (
 	"encoding/binary"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"os/exec"
 	"runtime"
 	"strconv"
 	"strings"
 
+	"github.com/bwmarrin/dgvoice"
 	"github.com/bwmarrin/discordgo"
 	"github.com/oleiade/lane"
 )
@@ -68,8 +68,8 @@ func (vi *VoiceInstance) playVideo(url string) {
 	// buffer used during loop below
 	audiobuf := make([]int16, frameSize*channels)
 
-	vi.discord.Voice.Speaking(true)
-	defer vi.discord.Voice.Speaking(false)
+	//vi.discord.Voice.Speaking(true)
+	//defer vi.discord.Voice.Speaking(false)
 
 	for {
 		// read data from ffmpeg stdout
@@ -82,7 +82,7 @@ func (vi *VoiceInstance) playVideo(url string) {
 			break
 		}
 		if vi.stop == true || vi.skip == true {
-			run.Process.Kill()
+			err = run.Process.Kill()
 			break
 		}
 		vi.pcmChannel <- audiobuf
@@ -102,7 +102,7 @@ func (vi *VoiceInstance) SkipVideo() {
 }
 
 func (vi *VoiceInstance) connectVoice() {
-	vi.discord, _ = discordgo.New(*email, *password)
+	vi.discord, _ = discordgo.New(email, password)
 
 	// Open the websocket and begin listening.
 	err := vi.discord.Open()
@@ -113,9 +113,9 @@ func (vi *VoiceInstance) connectVoice() {
 	channels, err := vi.discord.GuildChannels(vi.serverID)
 
 	var voiceChannel string
-	voiceChannels := []string{}
+	var voiceChannels []string
 	for _, channel := range channels {
-		if channel.Type == "voice" {
+		if channel.Type == discordgo.ChannelTypeGuildVoice {
 			voiceChannels = append(voiceChannels, channel.ID)
 			if strings.Contains(strings.ToLower(channel.Name), "music") && voiceChannel == "" {
 				voiceChannel = channel.ID
