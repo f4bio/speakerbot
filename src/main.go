@@ -49,9 +49,11 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) {
 		} else if method == "skip" && voiceInstances[serverID] != nil {
 			voiceInstances[serverID].SkipVideo()
 		} else if method == "help" {
-			s.ChannelMessageSend(m.ChannelID, `**!play** <youtube link or query> - Search/Play Youtube link, queues up if another track is playing
+			s.ChannelMessageSend(m.ChannelID, `
+**!play** <youtube link or query> - Search/Play Youtube link, queues up if another track is playing 
 **!skip** - Skip current playing track
-**!stop** - Stops tracks and clears queue`)
+**!stop** - Stops tracks and clears queue`
+			)
 		}
 	}
 }
