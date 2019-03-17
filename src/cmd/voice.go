@@ -6,11 +6,9 @@ import (
 	"io"
 	"net/http"
 	"os/exec"
-	"runtime"
 	"strconv"
 	"strings"
 
-	"github.com/bwmarrin/dgvoice"
 	"github.com/bwmarrin/discordgo"
 	"github.com/oleiade/lane"
 )
@@ -128,7 +126,7 @@ func (vi *VoiceInstance) connectVoice() {
 		voiceChannel = voiceChannels[0]
 	}
 
-	err = vi.discord.ChannelVoiceJoin(vi.serverID, voiceChannel, false, true)
+	vi.discord.ChannelVoiceJoin(vi.serverID, voiceChannel, false, true)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -136,9 +134,9 @@ func (vi *VoiceInstance) connectVoice() {
 
 	// Hacky loop to prevent returning when voice isn't ready
 	// TODO: Find a better way.
-	for vi.discord.Voice.Ready == false {
-		runtime.Gosched()
-	}
+	//for vi.discord.Voice.Ready == false {
+	//	runtime.Gosched()
+	//}
 }
 
 // QueueVideo places a Youtube link in a queue
@@ -161,7 +159,7 @@ func (vi *VoiceInstance) processQueue() {
 		// No more tracks in queue? Cleanup.
 		fmt.Println("Closing connections")
 		close(vi.pcmChannel)
-		vi.discord.Voice.Close()
+		//vi.discord.Voice.Close()
 		vi.discord.Close()
 		delete(voiceInstances, vi.serverID)
 		fmt.Println("Done")
@@ -179,7 +177,7 @@ func CreateVoiceInstance(youtubeLink string, serverID string) {
 	vi.connectVoice()
 
 	vi.pcmChannel = make(chan []int16, 2)
-	go SendPCM(vi.discord.Voice, vi.pcmChannel)
+	//go SendPCM(vi.discord.VoiceConnections, vi.pcmChannel)
 
 	vi.QueueVideo(youtubeLink)
 	vi.processQueue()

@@ -41,6 +41,8 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) error {
 			voiceInstances[serverID].StopVideo()
 		} else if method == "skip" && voiceInstances[serverID] != nil {
 			voiceInstances[serverID].SkipVideo()
+		} else if method == "say" && voiceInstances[serverID] != nil {
+			voiceInstances[serverID].SkipVideo()
 		} else if method == "help" {
 			msg := fmt.Sprintf("%s\\n%s\\%s",
 				"**!play** <youtube link or query> - Search/Play Youtube link, queues up if another track is playing",
@@ -50,4 +52,5 @@ func messageCreate(s *discordgo.Session, m *discordgo.MessageCreate) error {
 			return err
 		}
 	}
+	return nil
 }

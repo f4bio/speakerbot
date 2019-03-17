@@ -24,22 +24,21 @@ var rootCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 
 		discord, err := discordgo.New(email, password)
-		if err != nil {
-			fmt.Println("Error logging in")
-			fmt.Println(err)
-		}
+		CheckErr(err)
 
 		discord.AddHandler(messageCreate)
 
 		// Open the websocket and begin listening.
 		err = discord.Open()
-		if err != nil {
-			fmt.Println(err)
-		}
+		CheckErr(err)
 
 		fmt.Println("Listening...")
 		lock := make(chan int)
 		<-lock
+
+		// Cleanly close down the Discord session.
+		err = discord.Close()
+		CheckErr(err)
 	},
 }
 
