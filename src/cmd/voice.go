@@ -43,7 +43,13 @@ func (vi *VoiceInstance) playVideo(url string) {
 		log.Printf("Http.Get\nerror: %s\ntarget: %s\n", err, url)
 		return
 	}
-	defer resp.Body.Close()
+	defer func() {
+		err := resp.Body.Close()
+		if err != nil {
+			log.Printf("resp.Body.Close\nerror: %s\ntarget: %s\n", err, url)
+			return
+		}
+	}()
 
 	if resp.StatusCode != 200 {
 		log.Printf("reading answer: non 200 status code received: '%s'", err)
@@ -64,14 +70,14 @@ func (vi *VoiceInstance) playVideo(url string) {
 	}
 
 	// buffer used during loop below
-	audiobuf := make([]int16, frameSize*channels)
+	audioBuff := make([]int16, frameSize*channels)
 
 	//vi.discord.Voice.Speaking(true)
 	//defer vi.discord.Voice.Speaking(false)
 
 	for {
 		// read data from ffmpeg stdout
-		err = binary.Read(stdout, binary.LittleEndian, &audiobuf)
+		err = binary.Read(stdout, binary.LittleEndian, &audioBuff)
 		if err == io.EOF || err == io.ErrUnexpectedEOF {
 			break
 		}
@@ -83,7 +89,7 @@ func (vi *VoiceInstance) playVideo(url string) {
 			err = run.Process.Kill()
 			break
 		}
-		vi.pcmChannel <- audiobuf
+		vi.pcmChannel <- audioBuff
 	}
 
 	vi.trackPlaying = false
@@ -123,10 +129,12 @@ func (vi *VoiceInstance) connectVoice() {
 
 	if voiceChannel == "" {
 		fmt.Println("Selecting first channel")
-		voiceChannel = voiceChannels[0]
+		if len(voiceChannels) > 0 {
+			voiceChannel = voiceChannels[0]
+		}
 	}
 
-	vi.discord.ChannelVoiceJoin(vi.serverID, voiceChannel, false, true)
+	_, err = vi.discord.ChannelVoiceJoin(vi.serverID, voiceChannel, false, true)
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -160,7 +168,11 @@ func (vi *VoiceInstance) processQueue() {
 		fmt.Println("Closing connections")
 		close(vi.pcmChannel)
 		//vi.discord.Voice.Close()
-		vi.discord.Close()
+		err := vi.discord.Close()
+		if err != nil {
+			fmt.Println(err)
+			return
+		}
 		delete(voiceInstances, vi.serverID)
 		fmt.Println("Done")
 	}

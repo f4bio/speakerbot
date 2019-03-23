@@ -78,8 +78,8 @@ func (y *youtube) parseVideoInfo() error {
 }
 
 func (y *youtube) getVideoInfo() error {
-	url := "http://youtube.com/get_video_info?video_id=" + y.videoID
-	_, body, err := gorequest.New().Get(url).End()
+	youtubeUrl := "http://youtube.com/get_video_info?video_id=" + y.videoID
+	_, body, err := gorequest.New().Get(youtubeUrl).End()
 	if err != nil {
 		return err[0]
 	}
@@ -90,8 +90,8 @@ func (y *youtube) getVideoInfo() error {
 func (y *youtube) findVideoID(videoID string) error {
 	if strings.Contains(videoID, "youtu") || strings.ContainsAny(videoID, "\"?&/<%=") {
 		reList := []*regexp.Regexp{
-			regexp.MustCompile(`(?:v|embed|watch\?v)(?:=|/)([^"&?/=%]{11})`),
-			regexp.MustCompile(`(?:=|/)([^"&?/=%]{11})`),
+			regexp.MustCompile(`(?:v|embed|watch\?v)[=/]([^"&?/=%]{11})`),
+			regexp.MustCompile(`[=/]([^"&?/=%]{11})`),
 			regexp.MustCompile(`([^"&?/=%]{11})`),
 		}
 		for _, re := range reList {
@@ -114,7 +114,11 @@ func (y *youtube) findVideoID(videoID string) error {
 }
 
 func searchYoutube(text string) (string, error) {
-	formattedURL := fmt.Sprintf("https://www.googleapis.com/youtube/v3/search?part=snippet&q=%s&key=%s", url.QueryEscape(text), *googleKey)
+	formattedURL := fmt.Sprintf(
+		"https://www.googleapis.com/youtube/v3/search?part=snippet&q=%s&key=%s",
+		url.QueryEscape(text),
+		googleKey,
+	)
 
 	_, body, err := gorequest.New().Get(formattedURL).EndBytes()
 	if err != nil {
@@ -124,7 +128,7 @@ func searchYoutube(text string) (string, error) {
 	jsonParsed, _ := gabs.ParseJSON(body)
 	children, _ := jsonParsed.S("items").Children()
 	if len(children) == 0 {
-		return "", fmt.Errorf("No video found")
+		return "", fmt.Errorf("no video found")
 	}
 
 	videoID, _ := children[0].Path("id.videoId").Data().(string)
