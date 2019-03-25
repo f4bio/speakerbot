@@ -117,7 +117,7 @@ func searchYoutube(text string) (string, error) {
 	formattedURL := fmt.Sprintf(
 		"https://www.googleapis.com/youtube/v3/search?part=snippet&q=%s&key=%s",
 		url.QueryEscape(text),
-		googleKey,
+    googleKey,
 	)
 
 	_, body, err := gorequest.New().Get(formattedURL).EndBytes()
