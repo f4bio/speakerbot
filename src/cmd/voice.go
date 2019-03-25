@@ -153,6 +153,12 @@ func (vi *VoiceInstance) QueueVideo(youtubeLink string) {
 	vi.queue.Enqueue(youtubeLink)
 }
 
+// QueueVideo places a Youtube link in a queue
+func (vi *VoiceInstance) QueueAudio(name string) {
+  fmt.Println("Queuing audio")
+  vi.queue.Enqueue(name)
+}
+
 func (vi *VoiceInstance) processQueue() {
 	if vi.trackPlaying == false {
 		for {
